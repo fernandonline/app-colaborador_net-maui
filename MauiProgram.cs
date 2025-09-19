@@ -20,13 +20,13 @@ namespace crud_maui
                 });
 
             Batteries.Init();
-            var dbContext = new EmpregadoDbContext();
+            var dbContext = new ColaboradorDbContext();
             dbContext.Database.EnsureCreated();
             dbContext.Dispose();
 
-            builder.Services.AddDbContext<EmpregadoDbContext>();
+            builder.Services.AddDbContext<ColaboradorDbContext>();
             builder.Services.AddTransient<ColaboradorPage>();
-            builder.Services.AddTransient<EmpregadoViewModel>();
+            builder.Services.AddTransient<ColaboradorViewModel>();
 
             builder.Services.AddTransient<MainPage>();
             builder.Services.AddTransient<MainViewModel>();

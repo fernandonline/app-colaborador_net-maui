@@ -1,59 +1,60 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage 
+<ContentPage
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="crud_maui.Views.ColaboradorPage"
     Title="{Binding TituloPagina}"
     >
 
-    <VerticalStackLayout
+	<VerticalStackLayout
         Padding="15"
         >
-        <ActivityIndicator
+		<ActivityIndicator
             IsVisible="{Binding LoadingVisivel}"
-            IsRunning="{Binding LoadingVisible}"
+            IsRunning="{Binding LoadingVisivel}"
             Color="Blue"
             HeightRequest="30"
         />
 
-        <Label
+		<Label
             Text="Nome Completo"
         />
-        <Entry
-            Text="{Binding EmpregadoDto.NomeCompleto}"
+		<Entry
+            Text="{Binding ColaboradorDto.NomeCompleto, Mode=TwoWay}"
             Margin="0,0,0,10"
         />
 
-        <Label
+		<Label
             Text="Email"
         />
-        <Entry
-            Text="{Binding EmpregadoDto.Email}"
+		<Entry
+            Text="{Binding ColaboradorDto.Email, Mode=TwoWay}"
             Margin="0,0,0,10"
         />
 
-        <Label
+		<Label
             Text="Salário"
         />
-        <Entry
-            Text="{Binding EmpregadoDto.Salario}"
+		<Entry
+            Text="{Binding ColaboradorDto.Salario, Mode=TwoWay}"
+            Placeholder="Voluntário"
             Keyboard="Numeric"
             Margin="0,0,0,10"
         />
 
-        <Label
+		<Label
             Text="Data"
         />
-        <DatePicker
-            Date="{Binding EmpregadoDto.DataContratacao}"
+		<DatePicker
+            Date="{Binding ColaboradorDto.DataContratacao, Mode=TwoWay}"
             Margin="0,0,0,10"
         />
 
-        <Button
+		<Button
             Text="Salvar"
             Command="{Binding SalvarCommand}"
             Background="Green"
         />
 
-    </VerticalStackLayout>
+	</VerticalStackLayout>
 </ContentPage>

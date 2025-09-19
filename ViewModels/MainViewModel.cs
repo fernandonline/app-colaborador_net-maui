@@ -4,7 +4,7 @@ using CommunityToolkit.Mvvm.Input;
 using Microsoft.EntityFrameworkCore;
 using crud_maui.Views;
 using crud_maui.Models;
-using crud_maui.Ultilidade;
+using crud_maui.Utils;
 using crud_maui.DTOs;
 using crud_maui.DataAcess;
 using System.Collections.ObjectModel;
@@ -13,31 +13,31 @@ namespace crud_maui.ViewModels
 {
     public partial class MainViewModel : ObservableObject
     {
-        private readonly EmpregadoDbContext _dbContext;
+        private readonly ColaboradorDbContext _dbContext;
 
         [ObservableProperty]
-        private ObservableCollection<EmpregadoDTO> listaEmpregado = new ObservableCollection<EmpregadoDTO>();
+        private ObservableCollection<ColaboradorDTO> listaColaborador = new ObservableCollection<ColaboradorDTO>();
     
-        public MainViewModel(EmpregadoDbContext context)
+        public MainViewModel(ColaboradorDbContext context)
         {
             _dbContext = context;
 
             MainThread.BeginInvokeOnMainThread(new Action(async () => await Obter()));
 
-            WeakReferenceMessenger.Default.Register<EmpregadoMensageria>(this, (r, m) => EmpregadoMensagemRecebida(m.Value));
+            WeakReferenceMessenger.Default.Register<ColaboradorMensageria>(this, (r, m) => ColaboradorMensagemRecebida(m.Value));
         }
 
         public async Task Obter()
         {
-            var lista = await _dbContext.Empregados.ToListAsync();
+            var lista = await _dbContext.Colaboradores.ToListAsync();
             if(lista.Count != 0)
             {
-                ListaEmpregado.Clear();
+                ListaColaborador.Clear();
                 foreach (var item in lista)
                 {
-                    ListaEmpregado.Add(new EmpregadoDTO
+                    ListaColaborador.Add(new ColaboradorDTO
                     {
-                        IdEmpregado = item.IdEmpregado,
+                        IdColaborador = item.IdColaborador,
                         NomeCompleto = item.NomeCompleto,
                         Email = item.Email,
                         Salario = item.Salario,
@@ -47,22 +47,22 @@ namespace crud_maui.ViewModels
             }
         }
 
-        private void EmpregadoMensagemRecebida(EmpregadoMensagem empregadoMensagem)
+        private void ColaboradorMensagemRecebida(ColaboradorMensagem colaboradorMensagem)
         {
-            var empregadoDto = empregadoMensagem.EmpregadoDto;
-            if( empregadoMensagem.Criando)
+            var colaboradorDto = colaboradorMensagem.ColaboradorDto;
+            if(colaboradorMensagem.Criando)
             {
-                ListaEmpregado.Add(empregadoDto);
+                ListaColaborador.Add(colaboradorDto);
             }
             else
             {
-                var encontrado = ListaEmpregado
-                    .First(e => e.IdEmpregado == empregadoDto.IdEmpregado);
+                var encontrado = ListaColaborador
+                    .First(e => e.IdColaborador == colaboradorDto.IdColaborador);
 
-                encontrado.NomeCompleto = empregadoDto.NomeCompleto;
-                encontrado.Email = empregadoDto.Email;
-                encontrado.Salario = empregadoDto.Salario;
-                encontrado.DataContratacao = empregadoDto.DataContratacao;
+                encontrado.NomeCompleto = colaboradorDto.NomeCompleto;
+                encontrado.Email = colaboradorDto.Email;
+                encontrado.Salario = colaboradorDto.Salario;
+                encontrado.DataContratacao = colaboradorDto.DataContratacao;
             }
         }
 
@@ -74,22 +74,22 @@ namespace crud_maui.ViewModels
         }
 
         [RelayCommand]
-        private async Task Editar(EmpregadoDTO empregadoDto)
+        private async Task Editar(ColaboradorDTO colaboradorDto)
         {
-            var uri = $"{nameof(ColaboradorPage)}?id={empregadoDto.IdEmpregado}";
+            var uri = $"{nameof(ColaboradorPage)}?id={colaboradorDto.IdColaborador}";
             await Shell.Current.GoToAsync(uri);
         }
 
         [RelayCommand]
-        private async Task Deletar(EmpregadoDTO empregadoDto)
+        private async Task Deletar(ColaboradorDTO colaboradorDto)
         {
             bool confirmacao = await Shell.Current.DisplayAlert("Confirmação", "Deseja realmente excluir?", "Sim", "Não");
             if (confirmacao)
             {
-                var encontrado = await _dbContext.Empregados.FirstAsync(e => e.IdEmpregado == empregadoDto.IdEmpregado);
-                _dbContext.Empregados.Remove(encontrado);
+                var encontrado = await _dbContext.Colaboradores.FirstAsync(e => e.IdColaborador == colaboradorDto.IdColaborador);
+                _dbContext.Colaboradores.Remove(encontrado);
                 await _dbContext.SaveChangesAsync();
-                ListaEmpregado.Remove(empregadoDto);
+                ListaColaborador.Remove(colaboradorDto);
 
             }
         }

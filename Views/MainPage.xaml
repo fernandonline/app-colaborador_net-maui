@@ -28,7 +28,7 @@
             >
 
             <CollectionView
-                ItemsSource="{Binding ListaEmpregado}"
+                ItemsSource="{Binding ListaColaborador}"
                 >
                 <CollectionView.ItemsLayout>
                     <LinearItemsLayout
@@ -39,7 +39,7 @@
 
                 <CollectionView.ItemTemplate>
                     <DataTemplate
-                        x:DataType="model:EmpregadoDTO"
+                        x:DataType="model:ColaboradorDTO"
                         >
                         <Border
                             Padding="10,5"

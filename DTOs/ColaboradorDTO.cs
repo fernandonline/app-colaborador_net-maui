@@ -2,10 +2,10 @@ using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace crud_maui.DTOs
 {
-    public partial class EmpregadoDTO : ObservableObject
+    public partial class ColaboradorDTO : ObservableObject
     {
         [ObservableProperty]
-        public int idEmpregado;
+        public int idColaborador;
         [ObservableProperty]
         public string nomeCompleto;
         [ObservableProperty]

@@ -4,7 +4,7 @@ namespace crud_maui.Views;
 
 public partial class ColaboradorPage : ContentPage
 {
-	public ColaboradorPage(EmpregadoViewModel viewModel)
+	public ColaboradorPage(ColaboradorViewModel viewModel)
 	{
 		InitializeComponent();
 		BindingContext = viewModel;
