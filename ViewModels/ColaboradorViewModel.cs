@@ -47,7 +47,7 @@ namespace crud_maui.ViewModels
 
                 await Task.Run(async () =>
                 {
-                    var encontrado = await _dbContext.Colaboradores.FirstAsync(e => e.IdColaborador == IdColaborador);
+                    var encontrado = await _dbContext.Colaboradores.FirstOrDefaultAsync(e => e.IdColaborador == IdColaborador);
                     ColaboradorDto.IdColaborador = encontrado.IdColaborador;
                     ColaboradorDto.NomeCompleto = encontrado.NomeCompleto;
                     ColaboradorDto.Email = encontrado.Email;
@@ -74,6 +74,31 @@ namespace crud_maui.ViewModels
             if (string.IsNullOrWhiteSpace(ColaboradorDto.Email))
             {
                 await Shell.Current.DisplayAlert("Erro", "O campo Email é obrigatório.", "OK");
+                return;
+            }
+
+            if (!IsValidEmail(ColaboradorDto.Email))
+            {
+                await Shell.Current.DisplayAlert("Erro", "Por favor, insira um endereço de e-mail válido.", "OK");
+                return;
+            }
+
+            static bool IsValidEmail(string email)
+            {
+                try
+                {
+                    var addr = new System.Net.Mail.MailAddress(email);
+                    return addr.Address == email;
+                }
+                catch
+                {
+                    return false;
+                }
+            }
+
+            if (ColaboradorDto.Salario < 0)
+            {
+                await Shell.Current.DisplayAlert("Erro", "O salário não pode ser negativo.", "OK");
                 return;
             }
 
@@ -104,7 +129,7 @@ namespace crud_maui.ViewModels
                 }
                 else
                 {
-                    var colaboradorExistente = await _dbContext.Colaboradores.FirstAsync(e => e.IdColaborador == IdColaborador);
+                    var colaboradorExistente = await _dbContext.Colaboradores.FirstOrDefaultAsync(e => e.IdColaborador == IdColaborador);
                     colaboradorExistente.NomeCompleto = ColaboradorDto.NomeCompleto;
                     colaboradorExistente.Email = ColaboradorDto.Email;
                     colaboradorExistente.Salario = ColaboradorDto.Salario;

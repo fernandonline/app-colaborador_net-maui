@@ -113,7 +113,7 @@
                                     Grid.Column="0"
                                     Text="Editar"
                                     Padding="0,15,10,5"
-                                    TextColor="Blue"
+                                    TextColor="Green"
                                     >
                                     <Label.GestureRecognizers>
                                         <TapGestureRecognizer
