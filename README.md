@@ -7,8 +7,8 @@ O objetivo desse projeto é aprender a desenvolver um aplicativo multiplataforma
 Essa aplicação tem como finalidade facilitar o gerenciamento de colaboradores em um projeto, permitindo o cadastro de informações como nome, e-mail, salário e data de admissão.
 
 ## Descrição
-**Linguagem de programação**: C#
-**Framework utilizado**: .NET MAUI
-**Banco de dados**: SQLite
-**IDE**: Visual Studio
-**Plataformas suportadas**: Android e Windows
+- **Linguagem de programação**: C#
+- **Framework utilizado**: .NET MAUI
+- **Banco de dados**: SQLite
+- **IDE**: Visual Studio
+- **Plataformas suportadas**: Android e Windows
