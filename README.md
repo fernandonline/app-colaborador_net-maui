@@ -1,6 +1,7 @@
 # App Colaborador
 <img src="./App-colaborador.png"/>
-## Objetivo do projeto
+
+## Objetivo
 O objetivo desse projeto é aprender a desenvolver um aplicativo multiplataforma Android e Windows ultilizando .NET MAUI, arquitetura MVVM e banco de dados local SQLite, permitindo cadastro, edição, visualização e remoção dos dados.
 
 ## Descrição do aplicativo
